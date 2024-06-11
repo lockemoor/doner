@@ -5,11 +5,15 @@ use std::path::Path;
 fn main() {
     
     let args: Vec<String> = env::args().collect();
-    let file_path = &args[1];
+    let file_path: &String = &args[1];
     if let Ok(lines) = read_by_line(file_path){
+
+        let mut i: i32 = 0;
+
         for line in lines.flatten() {
+            i += 1;
             if line.contains("TODO") {
-                println!("TODO Here: {} ", line);
+                println!("In : {} at line: {} : {}", file_path, i, line);
             }
     }
         
