@@ -1,19 +1,26 @@
-use std::{env, fs::{self, File}, io::{self, BufRead}};
+use std::{env, fs::File, io::{self, BufRead}};
 use std::path::Path;
 
 
 fn main() {
     
     let args: Vec<String> = env::args().collect();
-    let file_path: &String = &args[1];
-    if let Ok(lines) = read_by_line(file_path){
+    let first_arg: &str = &args[1];
 
-        let mut i: i32 = 0;
+    match first_arg{
+        "--repo" | "-r" => println!("{}", &args[2]),
+        _ => find_todos(&args[1])
+    }
 
-        for line in lines.flatten() {
-            i += 1;
-            if line.contains("TODO") {
-                println!("In : {} at line: {} : {}", file_path, i, line);
+}
+
+
+fn find_todos(filepath: &String) -> () {
+    
+    if let Ok(lines) = read_by_line(filepath){
+        for line in lines.flatten().enumerate() {
+            if line.1.contains("TODO") {
+                println!("In : {:?} at line: {} - {}", filepath, line.0+1 , line.1);
             }
     }
         
