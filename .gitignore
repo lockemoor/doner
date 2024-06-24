@@ -19,4 +19,6 @@ Cargo.lock
 /target
 
 # Added by lockemoore
+# mostly for test files
 test.*
+*generated.*
